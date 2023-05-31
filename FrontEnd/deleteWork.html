@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Sophie Bluel - Architecte d'intérieur</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">	
+	<meta name="description" content="">
+	<link rel="stylesheet" href="/Portfolio-architecte-sophie-bluel/X_exemplePratique/assets/style.css">
+</head>
+<body>
+	<section id="section_blockHeader">
+		<div class="blockHeader">		
+			<span class="icon_modifie edit_block">
+				<i class="icon_modifier fa-regular fa-pen-to-square"></i>Mode édition
+			</span>
+			<span class="btn_edition ">
+				<button >publier les changements</button>
+			</span>
+		</div> 
+	</section>
+<header>
+	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+	<nav>
+		<ul>
+			<li>projets</li>
+			<li>contact</li>
+			<li>login</li>
+			<li><img src="/Portfolio-architecte-sophie-bluel/X_exemplePratique/assets/icons/instagram.png"
+			alt="Instagram"></li>
+		</ul>
+	</nav>
+</header>
+<main>
+	<section id="introduction">
+		<figure>
+			<img src="/Portfolio-architecte-sophie-bluel/X_exemplePratique/assets/images/sophie-bluel.png" alt="">
+				<i class=" fa-regular fa-pen-to-square" ></i>
+		</figure>
+		<article>
+			<h2>Designer d'espace</h2>
+			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
+			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
+		</article>
+	</section>
+	<section id="portfolio">
+		<article>
+			<button class="js_modal_btn " id="add_img" type="button" onclick=" addModalWork();" style="opacity: 0;">
+			Ajouter
+		</button>
+			<h2>
+				<button class="dialog_icon_delete">supp</button>
+				Mes Projets 
+					<i class=" modal_icon_edit fa-regular fa-pen-to-square">
+						<span class="edit_icon_txt">modifier</span>
+					</i>
+					<br>
+			</h2>
+			<div class="category" id="categ">
+				<button class="active" id="4" type="button" value="btTous">Tous</button>	
+				<button  id="1" type="button" data-Objets>Objets</button>	
+				<button  id="2" type="button" data-Appartements>Appartements</button>
+				<button  id="3" type="button" data-Hotels>Hôtels & Restaurants</button>		
+			</div>
+
+		</article>
+		<div id="dialog_content">
+			<div id="dialog_header">
+				<h3>Ajout photo</h3>
+			</div> 
+			<div class="" >
+				<form  id='form_add_image'>
+				<div>
+					<input type="file" id="image"  accept="image/jpeg, image/png, image/jpg" 
+					value="/Portfolio-architecte-sophie-bluel/FrontEnd/assets/images/appartement-paris-x.png">
+				</div>
+				<output></output>
+
+				<label for="title">Titre</label>
+				<input type="text" name="title" id="title">
+
+				<label for="category">Catégorie</label>
+				<select id="id_category">
+					<option id="appartements">Appartements</option>
+					<option id="hotels_resto">Hôtels & Restaurants</option>
+					<option id="objet">Objets</option>
+				</select>
+			
+			</div>
+			<div id="dialog_footer">
+				<div>
+					<i class="fa-solid fa-horizontal-rule border_gris"></i>
+				</div>
+			<div> 
+				<button type="submit" class="btnSubmit">
+					Valider
+				</button>
+			</div>
+		</form>
+		</div>
+		<div class="gallery" >
+		</div>
+<!-- section dialog pour la suppresion -->
+		
+
+	</section>
+	
+</main>
+
+<footer>
+
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

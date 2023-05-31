@@ -1,0 +1,28 @@
+.title_connexion{
+    
+    width: 100px;
+    height: 36px;
+    left: 669px;
+    top: 242px;
+    font-family: 'Syne';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+       
+    color: #1D6154;
+    text-align: center;
+    }
+
+.container_connexion{
+    
+}
+
+div input{
+width: 379px;
+height: 51px;
+left: 530px;
+top: 338px;
+background: #FFFFFF;
+box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
