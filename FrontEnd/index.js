@@ -100,42 +100,45 @@ async function fetchWorks() {
     return works;
   }
 
-function deleteWork(){
-    fetchWorks().then(works => {
-        console.log(works); // fetch works
-        for (let i=0; i< works.length; i++) {
-            console.log(works[i].id);
-            
-        }
-        const idDelete = works[i].id;  // Récupérer de l'ID à supprimer   
-        const token = localStorage.getItem('token');
-        if (token) {
-            fetch(`http://localhost:5678/api/works/${idDelete}`, {
-                method: 'DELETE',
-                headers: {
-                "Accept": "application/json",
-                Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify(idDelete),
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('response du fetch ok!!:', response)
-                }else{
-                    console.log('response du fetch no ok!!:', console.error(error))
-                }
-            })
-            .catch(error => {
-            console.error(error);
-            });
-        }
-            // Récupération de l'icon à supprimer
-        const icDelete = document.querySelector(".iconDelete");
-
-        // Ajout d'un événement de clic sur l'icon
-        icDelete.addEventListener('click', () => {
-        // Suppression icon et img
+fetchWorks().then(works => {
+    console.log(works); // fetch works
+    for (let i = 0; i < works.length; i++) {
+      console.log(works[i].id);
+      const idDelete = works[i].id; // Récupérer l'ID à supprimer  
+      const icDelete = document.querySelector(".modal_gallery .iconDelete");
+      console.log(icDelete);    
+      // Ajout d'un événement de clic sur l'icône
+      icDelete.addEventListener('click', () => {
+        // Suppression de l'icône et de l'image
         icDelete.remove();
-        });
-    })
+        // Supprimer l'élément avec l'ID idDelete
+        deleteWork(idDelete);
+      });
+    }
+  });
+
+  function deleteWork(id){
+  fetch(`http://localhost:5678/api/works/${id}`, {
+  method: 'DELETE',
+  headers: {
+    "Accept": "application/json",
+    Authorization: Bearer `${token}`
+    },
+  body: JSON.stringify(id),
+})
+.then(response => {
+  if (response.ok) {
+    console.log('response du fetch ok!!:', response);
+    // Supprimer l'élément de la galerie côté client
+    const figure = icDelete.closest("figure");
+    if (figure) {
+      figure.remove();
+    }
+  } else {
+    console.log('response du fetch no ok!!:', console.error(error));
+  }
+})
+.catch(error => {
+  console.error(error);
+});
 }
