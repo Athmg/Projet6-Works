@@ -54,12 +54,6 @@ function displayWork(work){
                     <figcaption>éditer</figcaption>
                 </figure>
             `
-            const iconId=document.querySelector(".iconDelete");
-                iconId.addEventListener('click',()=>{
-                    let els = document.querySelector(".gallery");
-                   // console.log('id icon::',els)
-                    deleteWork();
-                });
         }))
     //affichage modal active
     function toggleModal(){
@@ -118,11 +112,12 @@ fetchWorks().then(works => {
   });
 
   function deleteWork(id){
+      const token=getToken();
   fetch(`http://localhost:5678/api/works/${id}`, {
   method: 'DELETE',
   headers: {
     "Accept": "application/json",
-    Authorization: Bearer `${token}`
+    Authorization: `Bearer ${token}`
     },
   body: JSON.stringify(id),
 })
