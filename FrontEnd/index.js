@@ -10,14 +10,25 @@ const btnElt=document.getElementById("button");
 /**
  * fetch get et trie de la gallery
  */
-
+/*
 const main=async ()=>{
     const response=await fetch(url);
     const works=await response.json();
+     displayWorks(works); // affichage des données (works)
+    filterEvent(works);
+      
+};main();*/
+
+async function fetchWorks() {
+    const response = await fetch(url);
+    const works = await response.json();
+    return works;
+  }
+
+fetchWorks().then(works => {
     displayWorks(works); // affichage des données (works)
-    filterEvent(works);    
-};
-main();
+    filterEvent(works); 
+})
 // Parcourir tous les images  et affichage dans la gallery
 function displayWorks(works){
     sectionGallery.innerHTML ="";
@@ -28,20 +39,22 @@ function displayWorks(works){
 
 //affichage d'une images dans la gallery
 function displayWork(work){
-    const modalContainer=document.querySelector('.modal_container');
-    const modalTrigger=document.querySelectorAll('.modal_trigger');
-    //données dans la modal
-     modal=document.querySelector('.modal');
-     modalGallery=document.querySelector('.modal_gallery');
-
-    // affichage sur la page index
+      // affichage sur la page index
     sectionGallery.innerHTML +=`
         <figure>
             <img src="${work.imageUrl}" alt="${work.title}">
             <figcaption>${work.title}</figcaption>
         </figure>
     `
+
+
    // affichage sur la modal
+   const modalContainer=document.querySelector('.modal_container');
+   const modalTrigger=document.querySelectorAll('.modal_trigger');
+   //données dans la modal
+    modal=document.querySelector('.modal');
+    modalGallery=document.querySelector('.modal_gallery');
+
     modalTrigger.forEach(trigger => 
         trigger.addEventListener('click',()=> {
             toggleModal();
@@ -57,8 +70,7 @@ function displayWork(work){
         }))
     //affichage modal active
     function toggleModal(){
-        modalContainer.classList.toggle("active");                 
-        
+        modalContainer.classList.toggle("active");                   
     }
 }
 
@@ -88,31 +100,27 @@ function getToken(){
 }
 getToken();
 
-async function fetchWorks() {
-    const response = await fetch(url);
-    const works = await response.json();
-    return works;
-  }
-
 fetchWorks().then(works => {
     console.log(works); // fetch works
     for (let i = 0; i < works.length; i++) {
       console.log(works[i].id);
-      const idDelete = works[i].id; // Récupérer l'ID à supprimer  
-      const icDelete = document.querySelector(".modal_gallery .iconDelete");
-      console.log(icDelete);    
+      const idDelete = works[i].id; // Récupérer l'ID à supprimer
+
+      const icDelete = document.querySelector("figure .iconDelete");
+      console.log(icDelete);
+    
       // Ajout d'un événement de clic sur l'icône
       icDelete.addEventListener('click', () => {
         // Suppression de l'icône et de l'image
         icDelete.remove();
         // Supprimer l'élément avec l'ID idDelete
-        deleteWork(idDelete);
+        deleteWork(icDelete);
       });
     }
   });
 
   function deleteWork(id){
-      const token=getToken();
+    const token = localStorage.getItem('token');
   fetch(`http://localhost:5678/api/works/${id}`, {
   method: 'DELETE',
   headers: {
@@ -137,3 +145,46 @@ fetchWorks().then(works => {
   console.error(error);
 });
 }
+  
+
+/*
+function deleteWork(){
+    fetchWorks().then(works => {
+        console.log(works); // fetch works
+        for (let i=0; i< works.length; i++) {
+            console.log(works[i].id);
+            const idToDelete = works[i].id; // Récupérer de l'ID à supprimer   
+        }
+        console.log(works[i].id);
+        const token = localStorage.getItem('token');
+        if (token) {
+            fetch(`http://localhost:5678/api/works/${idToDelete}`, {
+                method: 'DELETE',
+                headers: {
+                "Accept": "application/json",
+                Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(idToDelete),
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('response du fetch ok!!:', response)
+                }else{
+                    console.log('response du fetch no ok!!:', console.error(error))
+                }
+            })
+            .catch(error => {
+            console.error(error);
+            });
+        }
+            // Récupération de l'icon à supprimer
+        const icDelete = document.querySelector(".iconDelete");
+
+        // Ajout d'un événement de clic sur l'icon
+        icDelete.addEventListener('click', () => {
+        // Suppression icon et img
+        icDelete.remove();
+        });
+    })
+}
+*/
