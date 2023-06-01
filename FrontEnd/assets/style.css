@@ -232,8 +232,7 @@ footer nav ul {
 }
 .blockHeader {
 	display: block;
-	text-align: center;
-	
+	text-align: center;	
 	color: white;
 	background-color: black;
 	width: 1140px;
@@ -254,62 +253,7 @@ footer nav ul {
 }
 
 
-/* modal*/
-
-.modal_icon_edit{
-	position: absolute;
-	font-size: 14px;	
-	margin-left: 20px;
-	margin-top: 10px;
-	cursor: pointer;
-	color: #000000;
-}
-.edit_icon_txt{
-	width: 58px;
-	height: 16px;
-	margin-left: 5px;
-	font-family: 'Work Sans';
-	font-style: normal;
-	font-weight: 400;
-}
-
-/* contenu de la modal*/
-.section_dialog{
-	flex:1;
-	justify-content: center;
-	align-items: center;
-}
-
-#dialog_content {
-	padding: 5%;
-}
-
-dialog{
-	
-	width: 630px;
-	height: 731px;
-	border: 0;
-	border-radius: 0.5rem;
-	box-shadow: 0 0 1em rgba(0, 0, 0, 0.4);
-}
-
-dialog form button{
-	position: absolute;
-	border: none;
-	right:0;
-	width: 1rem;
-	line-height: 1.5rem;
-	cursor: pointer; 
-	background-color: transparent;
-}
-
-dialog::backdrop {
-/*	background: rgb(107, 105, 105);*/
-	opacity: .6;
-}
-
-/* titre de la galerie*/
-#dialog_header{
+#modalTitle{
 	text-align: center;
 	margin-bottom: 40px;
 	font-family: 'Work Sans';
@@ -320,24 +264,50 @@ dialog::backdrop {
 	color: #000000;
 }
 
-/* la galerie */
-.modal_btn{
-	padding: 10px, 15px;
-	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-	font-size: 30px;
-	margin: 100%, auto;
-	min-width: 16px;
-	display: block;
-   cursor: pointer;
-   border-radius: 15px;
+.edit_block_modal{
+	position: absolute;
+	width: 100px;
+	left:600px;
+	cursor: pointer;
+	color: #000000;
+}
 
-   /**/
-	border: none;
-	width: 1rem;
-	line-height: 1.5rem;
-	background-color: transparent;
+.modal_btn_edit{
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	border-radius: 15px;
+	 border: none;
+	 width: 1rem;
+	 line-height: 1.5rem;
+	 background-color: transparent;
+ 
+ }
+
+.modal_footer{
+	text-align: center;
+	padding: 60px;
 
 }
+
+.modal_footer div{
+	margin-top: 20px;
+}
+.modal_footer button{
+	padding: 80px;
+	width: 237px;
+	height: 36px;
+	position: absolute;
+	border: none;
+	right:0;
+	width: 1rem;
+	line-height: 1.5rem;
+	cursor: pointer; 
+	background-color: transparent;
+}
+
+/* la galerie */
+
 .modal_container{  
 	visibility: hidden;
 	position: fixed;   
@@ -352,7 +322,7 @@ dialog::backdrop {
 }
 
 .modal_container.active .overley{
-	opacity: 1;
+	opacity: 0.2;
 	transition: opacity 0.4s ease-out;
 }
 
@@ -361,17 +331,18 @@ dialog::backdrop {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	background-color:#9c9b9b2f;
 }
 .modal{
+	width: 630px;
+	height: 700px;
+	border: 0;
+	border-radius: 0.5rem;
+	box-shadow: 0 0 1em rgba(0, 0, 0, 0.4);
 	opacity: 0;
 	position: absolute;  
 	top:100px;  
 	left: 500px;
-	width: 630px;
-	height: 630px;
 	padding: 30px;
-	border-radius: 5px;   
 	background-color:#FFF;
 	transition: opacity 0.4s ease-out;
 	overflow:scroll;
@@ -395,7 +366,7 @@ dialog::backdrop {
 	height: 80%;
 }
 .close-modal{
-	padding: 8px 5px;
+	padding: 15px 5px;
 	border: none;
 	right: 0;
 	background-color: transparent;
@@ -406,95 +377,14 @@ dialog::backdrop {
 	color: black;
 }
 
-
-/* doublon doublon*/
-.gallery{
-	display: grid;
-		grid-template-columns: repeat(5, 1fr);
-		gap: 1%;
-}
-.gallery figure{
-		margin-bottom: 5px;
-	}
-	.gallery img{
-		width: 90%;
-		height: 80%;
-	}
-
-	.modal_btn{
-		padding: 10px, 15px;
-		font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-		font-size: 30px;
-		margin: 100%, auto;
-		min-width: 16px;
-		display: block;
-	   cursor: pointer;
-	   border-radius: 15px;
-	}
-	.modal_container{  
-		visibility: hidden;
-		position: fixed;   
-		top:0;
-		width: 1000vw;
-		height: 1000vh;
-	   transition: visibility 0.4s;
-	}
-	/**/
-	
-
-   
-	.modal_gallery{
-		display: grid;
-		grid-template-columns: repeat(5, 1fr);
-		gap: 1%;
-	}
-
-	.modal_gallery figure{
-		margin-bottom: 5px;
-	}
-	.modal_gallery img{
-		width: 90%;
-		height: 80%;
-	}
-	figure span i{
-		padding-bottom: 10px;
-		padding-top: 50px;
-		text-align: center;
-		width: 1.3rem;
-		height:  1.3rem;
-		color: rgba(9, 1, 1, 0.963);
-		cursor: pointer;
-	}
-	figcaption .caption-edit{
-		padding-top: 50px;
-		cursor: pointer;
-		padding-bottom: 30px;
-	}
-
-	.close-modal{
-		padding: 8px 5px;
-		border: none;
-		right: 0;
-		background-color: transparent;
-		border-radius: 5px;
-		font-size: 18px;
-		position: absolute;
-		cursor: pointer;
-		color: black;
-	}
-
-
-
-
-
-/* fin doublon doublon*/
-
 .modal_gallery p{
 	margin-top: 5px;
 	cursor: pointer;
 }
+
 /* Icon de suppression*/
 .dialog_icon_delete {
+	position: absolute;
 	margin-left: 65px;
 	margin-top: 10px;
 	background-color: black;
@@ -511,25 +401,10 @@ dialog::backdrop {
 	cursor: pointer; 
 }
 
-/* footer de la galerie*/
-#dialog_footer{
-	text-align: center;  
-}
-#dialog_footer div{
-	margin-top: 20px;
-}
-#dialog_footer button{
-	width: 237px;
-	height: 36px;
-}
 
-/* Ajoouter la galerie 
-#add_img{
-	background-color: #1D6154;
-}
-*/
-/* Supprimer la galerie */
 #delete_img{
+	
+	padding: 100px;
 color: #D65353;
 }
 
@@ -540,11 +415,6 @@ color: #D65353;
 	border: 1px solid #B3B3B3; 
 }
 
-/* modal ajout*/
-/*.dialog_ajout{
-
-
-}*/
 
 /* section Ajout work sur la page*/
 .section_dialog_add{
@@ -564,7 +434,7 @@ color: #D65353;
 
 }
 
-.dialog_add input[type="file"] {
+.modal input[type="file"] {
 	padding: 70px;
 	opacity: 1;
 }
@@ -588,10 +458,3 @@ color: #D65353;
 	height: 51px;
 	background: #FFFFFF;
 }
-/*
-.section_dialog_add b{
-	border: 0;
-	height: 40px;
-	cursor: pointer;
-	
-}*/
