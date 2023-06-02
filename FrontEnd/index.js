@@ -100,91 +100,96 @@ function getToken(){
 }
 getToken();
 
+
+// Delete de la gallery
 fetchWorks().then(works => {
     console.log(works); // fetch works
     for (let i = 0; i < works.length; i++) {
-      console.log(works[i].id);
-      const idDelete = works[i].id; // Récupérer l'ID à supprimer
-
-      const icDelete = document.querySelector("figure .iconDelete");
-      console.log(icDelete);
-    
-      // Ajout d'un événement de clic sur l'icône
-      icDelete.addEventListener('click', () => {
-        // Suppression de l'icône et de l'image
-        icDelete.remove();
-        // Supprimer l'élément avec l'ID idDelete
-        deleteWork(icDelete);
-      });
-    }
-  });
-
-  function deleteWork(id){
-    const token = localStorage.getItem('token');
-  fetch(`http://localhost:5678/api/works/${id}`, {
-  method: 'DELETE',
-  headers: {
-    "Accept": "application/json",
-    Authorization: `Bearer ${token}`
-    },
-  body: JSON.stringify(id),
-})
-.then(response => {
-  if (response.ok) {
-    console.log('response du fetch ok!!:', response);
-    // Supprimer l'élément de la galerie côté client
-    const figure = icDelete.closest("figure");
-    if (figure) {
-      figure.remove();
-    }
-  } else {
-    console.log('response du fetch no ok!!:', console.error(error));
-  }
-})
-.catch(error => {
-  console.error(error);
-});
-}
-  
-
-/*
-function deleteWork(){
-    fetchWorks().then(works => {
-        console.log(works); // fetch works
-        for (let i=0; i< works.length; i++) {
-            console.log(works[i].id);
-            const idToDelete = works[i].id; // Récupérer de l'ID à supprimer   
-        }
         console.log(works[i].id);
+        const idDelete = works[i].id; // Récupérer l'id à supprimer 
+
         const token = localStorage.getItem('token');
-        if (token) {
-            fetch(`http://localhost:5678/api/works/${idToDelete}`, {
-                method: 'DELETE',
-                headers: {
-                "Accept": "application/json",
-                Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify(idToDelete),
+        if(token) {
+            fetch(`http://localhost:5678/api/works/${idDelete}`, {
+            method: 'DELETE',
+            headers: {
+                    "Accept": "application/json",
+                    Authorization: `Bearer ${token}`
+                    },
+            body: JSON.stringify(idDelete),
             })
             .then(response => {
                 if (response.ok) {
-                    console.log('response du fetch ok!!:', response)
-                }else{
-                    console.log('response du fetch no ok!!:', console.error(error))
-                }
+                    console.log('response du fetch ok!!:', response);
+                    // Supprimer l'élément de la galerie côté client
+                    const iconDelete=document.querySelector(".iconDelete");
+                    const figure = iconDelete.closest("figure");
+                    if (figure) {
+                        figure.remove();
+                        iconToDelete();
+                        }
+                } else {
+                        console.log('response du fetch no ok!!:', console.error(error));
+                    }
             })
             .catch(error => {
-            console.error(error);
+                console.error(error);
             });
         }
-            // Récupération de l'icon à supprimer
-        const icDelete = document.querySelector(".iconDelete");
+    }
+});
 
-        // Ajout d'un événement de clic sur l'icon
-        icDelete.addEventListener('click', () => {
-        // Suppression icon et img
-        icDelete.remove();
-        });
-    })
+/* delete des icones suivant le click*/
+function iconToDelete(){
+    const iconDeletes=document.querySelectorAll(".iconDelete");
+    console.log('les icon poubelle::',iconDeletes); 
+    iconDeletes.forEach(iconDelete =>
+        iconDelete.addEventListener('click',()=> {
+            console.log('icon pubelle delete::',iconDelete);  
+            iconDelete.remove();         
+        })
+    )
 }
-*/
+// fin delete//
+
+/**
+ * Ajout work
+ */
+
+function addWork(){ 
+    const imageElt=document.querySelector("#image").value;
+    const titleElt=document.getElementById('title').value;
+    const idCategoryElt=document.getElementById('id_category').value; 
+
+    const formAddImage=document.querySelector('#form');
+    const formWork=new FormData(formAddImage);
+   
+    formWork.append('imageUrl',imageElt);
+    console.log(formWork.getAll('imageUrl'));
+
+    formWork.append('title',titleElt);
+    console.log(formWork.getAll('title'));
+
+    formWork.append('categoryId',idCategoryElt);
+   console.log(formWork.getAll('categoryId'));
+
+    const work=new URLSearchParams(formWork);
+      console.log(work);
+
+    fetch('http://localhost:5678/api/works',{
+        method:'POST',
+        headers:{ 
+            'accept': 'application/json',
+            'Content-Type': 'multipart/form-data'
+            },
+        body:JSON.stringify(formWork)
+    })
+    .then((response) => response.json())
+    .then((works) => console.log( 'les données sont ok!!:' , works))
+}
+
+const formAddImage=document.querySelector('#form');
+    formAddImage.addEventListener('submit', (e)=> {
+        e.preventDefault();
+        addWork();
+    })
