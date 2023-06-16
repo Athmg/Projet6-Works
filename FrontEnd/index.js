@@ -262,15 +262,17 @@ Envoyer les données dans le serveur
 const formAddImage = document.querySelector('#form');
 formAddImage.addEventListener('submit', (e) => {
   e.preventDefault();
-
+  const imageElt = document.getElementById('image').files[0];
+  const titleElt = document.getElementById('title').value;
+  const optionsCateg = document.getElementById('id_category');
 // forma data pour l'ajout
   const formWork = new FormData(formAddImage);
   formWork.append('title', titleElt);
-  console.log(titleElt.value);
+  console.log(titleElt);
   formWork.append('category', optionsCateg.value);
-  console.log(optionsCateg.value);
+  console.log(optionsCateg);
   formWork.append('image', imageElt);
-  console.log(imageElt.value);
+  console.log(imageElt);
 
   const token = localStorage.getItem('token');
 
@@ -286,7 +288,7 @@ formAddImage.addEventListener('submit', (e) => {
     })
     .then((works) => {   
       // ajouter nouveau work     
-       // displayWork(formWork);
+        displayWork(formWork)  
       formAddImage.reset(); // mettre à zéro le formulaire une fois ajouter
     })
     .catch((error) => {
@@ -301,14 +303,15 @@ formAddImage.addEventListener('submit', (e) => {
 ////////////////////////////////////////////////////////////
 // tester les champs du formulaire
 
-const imageElt = document.querySelector("#image");
-const titleElt = document.getElementById('title')
-const optionsCateg = document.getElementById('id_category');
+
  // Sélectionner le bouton "Valider"
  const btnValider = document.getElementById('btn-add');
 
  // Fonction de vérification input
  function testChamps() {
+  const imageElt = document.querySelector("#image");
+const titleElt = document.getElementById('title')
+const optionsCateg = document.getElementById('id_category');
   btnValider.disabled= true;
   const inputs = form.querySelectorAll("input"); 
       inputs.forEach(function(input) {
