@@ -1,4 +1,4 @@
-// recupération de l'url works
+// Récupérer l'url works
 const url = "http://localhost:5678/api/works";
 
 // Récupérer le token
@@ -7,8 +7,11 @@ const token = localStorage.getItem('token');
 // Récupérer éléments de la gallery
 const sectionGallery = document.querySelector(".gallery");
 
-// btn pour filter la gallery suivant les boutons
+// Récupérer btn pour filter la gallery suivant les boutons
 const btnsCateg = document.querySelectorAll(".category button");
+
+// Récupérer élément bouton des categories
+const idBtnsCateg = document.getElementById('categ');
 
 // Récupérer éléments mode édition
 const sectionBlockHeader = document.getElementById('section_blockHeader');
@@ -18,17 +21,12 @@ const editIconTxt = document.querySelectorAll(".edit_icon_txt");
 // Récupérer éléments de la gallery modal
 const modalGallery = document.querySelector(".modal_gallery");
 
-// recupération de ID 
-//const btnElt = document.getElementById("button");
-
-// Récupérer élément id des categories
-const idBtnsCateg = document.getElementById('categ');
-
-// Récupérer éléments(id) du formulaire
+// Récupérer éléments(id) du formulaire 
+/*
+const form = document.getElementById("form");
 const imageElt = document.getElementById('image');
 const titleElt = document.getElementById('title');
-const optionsCateg = document.getElementById('id_category');
-
+const optionsCateg = document.getElementById('id_categ_form');*/
 
 // Récupérer éléments des modals
 const modalDelete = document.getElementById("modal-delete");
@@ -36,7 +34,6 @@ const modalAdd = document.getElementById("modal-add");
 const closeModalBtns = document.querySelectorAll(".close");
 const btnAddPhoto = document.getElementById("btn-add-photo");
 const btnEdit = document.querySelectorAll(".btn-edit");
-
 
 //Récupérer éléments pour l'image et l'afficher(chargment img) dans modal ajout
 const input = document.getElementById('image');
@@ -46,21 +43,25 @@ const faImage = document.getElementById('fa-i-image');
 const fileLabel = document.getElementById('img-label');
 const typeImgLabel = document.getElementById('type-img-label');
 
-/**
- * fetch get et trie de la gallery
- */
+// Sélectionner le bouton "Valider"
+const btnValider = document.getElementById('btn-add');
+//const formAddImage = document.querySelector('#form');
+const arrowLeft = document.getElementById('arrow-left');
+
+/*** main : fonction principale *****/
 
 const main = async () => {
   const response = await fetch(url);
   const works = await response.json();
-  displayWorks(works); // affichage les données (works)
-  deleteWork();
-  filterEvent(works);
+  displayWorks(works); // afficher works
+  deleteWork();        // suppression works
+  addWorks()    //ajout works
+  filterGallery(works);  // filtrer works
 };
 main();
 
 ///////////////////////////////////////////////////////////////////
-// affichage des images dans la gallery
+// afficher images dans la gallery
 function displayWorks(works) {
   sectionGallery.innerHTML = "";
   works.forEach(work => {
@@ -68,36 +69,38 @@ function displayWorks(works) {
   });
 }
 
-//affichage d'un image dans la gallery
+//afficher une image dans la gallery
 function displayWork(work) {
-  // affichage sur la page index
+  // afficher sur la page index
   sectionGallery.innerHTML += `
             <figure>
                 <img src="${work.imageUrl}" alt="${work.title}">
                 <figcaption>${work.title}</figcaption>
             </figure>
         `
+  // afficher sur la modal
   modalGallery.innerHTML += `
           <figure>
-            <i class="iconDelete fa-solid fa-trash-can" data-id=${work.id}></i>
+            <div id="id-icon"><i class="iconDelete fa-solid fa-trash-can" data-id=${work.id}></i></div>
             <img src="${work.imageUrl}" alt="${work.title}">
             <figcaption class="caption-edit">éditer</figcaption>
           </figure>
         `
 }
+
 //////////////////////////////////////////////////////////////
-// filter de la gallery 
-function filterEvent(works) {
+// filter la gallery 
+function  filterGallery(works) {
   btnsCateg.forEach(btnCateg => {
     btnCateg.addEventListener("click", () => {
       const categoryId = parseInt(btnCateg.id);
-      filterGallery(works, categoryId);
+      filterEvent(works, categoryId);
     });
   })
 }
 
 //filter dans la gallery par catégories Id
-function filterGallery(works, idCategorie) {
+function filterEvent(works, idCategorie) {
   const galleryFilters = works.filter(work => work.categoryId === idCategorie || idCategorie === 0);
   displayWorks(galleryFilters);
 
@@ -149,8 +152,6 @@ if (testToken) {
 
 // vérifier le Token
 function loginTestToken() {
-
-
   // Vérifier si token existe
   if (token) {
     // L'utilisateur est connecté
@@ -162,14 +163,12 @@ function loginTestToken() {
 }
 
 ////////////////////////////////////////////////////
-// afficher les modals
 
-
-// afficher la modal de suppression
+// afficher la modal suppression
 function displayModalDelete() {
   modalDelete.style.display = "block";
 }
-//  afficher la modal d'ajout
+//  afficher la modal ajout
 function displayModalAdd() {
   modalAdd.style.display = "block";
 }
@@ -196,9 +195,6 @@ window.addEventListener("click", (event) => {
     fermerModals();
   }
 });
-
-///////////////////////////////////////////////////////////////////////////
-
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -242,9 +238,7 @@ function deleteWork() {
 //////////////////////////////////////////////////////////////////////
 // Ajouter work dans le Dom et dans le server
 
-
-
-// addEventListener pour le chargement de l'image
+// événement pour le chagement de l'image
 input.addEventListener('change', changeImage);
 
 /* function upload l'image et l'afficher*/
@@ -254,20 +248,20 @@ function changeImage() {
   // Vérifier si le fichier est sélectionné
   if (file) {
     console.log('Taille du fichier :', file.size, 'octets');
+    fileLabel.style.display = 'blo';
     // teste taille de l'image si < à 4Mo
     if (file.size < 4) {
       alert('verifier la taille de l image');
       imageURL = '';
     }
     else {
-
       // Créer l'URL pour le fichier sélectionné
       imageURL = URL.createObjectURL(file);
       // Afficher l'image dans l'aperçu du modal
       previewImage.setAttribute('src', imageURL);
       // Ouvrir le modal d'aperçu
       previewImgBlock.style.display = 'block';
-      // cacher les données présent avant le upload
+      // Cacher les données présent avant le upload
       faImage.style.display = 'none';
       fileLabel.style.display = 'none';
       input.style.display = 'none';
@@ -277,90 +271,71 @@ function changeImage() {
 
 }
 
-/* *
-Envoyer les données dans le serveur
-*/
-const formAddImage = document.querySelector('#form');
-formAddImage.addEventListener('submit', (e) => {
-  e.preventDefault();
+/** envoyer les données dans le serveur **/
+function addWorks(){
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // forma data pour l'ajout
+    const formWork = new FormData(form);
+    formWork.append('title', titleElt.value);
+    console.log(titleElt);
+    formWork.append('category', optionsCateg.value);
+    console.log(optionsCateg);
+    formWork.append('image', imageElt.files[0]);
+    console.log(imageElt);
 
-  // forma data pour l'ajout
-  const formWork = new FormData(formAddImage);
-  formWork.append('title', titleElt.value);
-  console.log(titleElt);
-  formWork.append('category', optionsCateg.value);
-  console.log(optionsCateg);
-  formWork.append('image', imageElt.files[0]);
-  console.log(imageElt);
+    const token = localStorage.getItem('token');
 
-  const token = localStorage.getItem('token');
-
-  fetch('http://localhost:5678/api/works', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-    body: formWork,
-  })
-    .then((response) => {
-      return response.json();
+    fetch('http://localhost:5678/api/works', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      body: formWork,
     })
-    .then((work) => {
-      // ajouter nouveau work     
-      displayWork(work)
-      formAddImage.reset(); // mettre à zéro le formulaire une fois ajouter
-    })
-    .catch((error) => {
-      console.log('Erreur lors de la requête fetch:', error);
-    });
-  e.stopPropagation();
-});
-
-
-
-////////////////////////////////////////////////////////////
-// tester les champs du formulaire
-
-// Sélectionner le bouton "Valider"
-const btnValider = document.getElementById('btn-add');
-
-// Fonction de vérification input
-function testChamps() {
-  btnValider.disabled = true;
-
-  if (imageElt.value.trim() !== "" && titleElt.value !== '' && optionsCateg.value !== '') {
-    btnValider.disabled = false;
-    btnValider.style.backgroundColor = '#1D6154';
-  }
-
+      .then((response) => {
+        return response.json();
+      })
+      .then((work) => {
+        // ajouter nouveau work     
+        displayWork(work)
+        form.reset(); // mettre à zéro le formulaire une fois ajouter
+      })
+      .catch((error) => {
+        console.log('Erreur lors de la requête fetch:', error);
+      });
+    e.stopPropagation();
+  });
 }
-
+////////////////////////////////////////////////////////////
+// tester les champs du formulaire pour activer le bouton valider
 
 const form = document.getElementById("form");
-const idCategory = document.getElementById('id_category')
-console.log(idCategory);
-testChamps();
+const imageElt = document.getElementById('image');
+const titleElt = document.getElementById('title');
+const optionsCateg = document.getElementById('id_categ_form');
+btnValider.disabled = true;
 
-form.addEventListener("input", testChamps);
+function testChamps() {
 
-/**/
+
+  if (imageElt.file[0] !== '' && titleElt.value.trim() !== '' && optionsCateg.value.trim() !== '') {
+    btnValider.disabled = false;
+  } else {
+    btnValider.disabled = true;
+  }
+}
+
+imageElt.addEventListener('change', testChamps);
+titleElt.addEventListener('change', testChamps);
+optionsCateg.addEventListener('change', testChamps);
 
 ///////////////////////////////////////////////
 // événement au clic arrow-left
-const arrowLeft = document.getElementById('arrow-left');
 arrowLeft.addEventListener("click", function () {
   // masquer la modale ajout
   modalAdd.style.display = "none";
   // afficher la modale suppression
   modalDelete.style.display = "block";
   //formAddImage.reset();
-
-});
-
-////////////////////////////////////////////////////////////
-// bouton chargement
-btnChange.addEventListener('click', () => {
-  console.log('changer')
-  displayWork();
-
 });
