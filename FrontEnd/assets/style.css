@@ -105,6 +105,7 @@ menu,
 nav,
 section {
 	display: block;
+	box-sizing: border-box;
 }
 
 body {
@@ -119,6 +120,12 @@ ul {
 /*ajout css sur liens dans le li*/
 li a {
 	text-decoration: none;
+	color: black;
+
+}
+
+li a:visited {
+	color: black;
 }
 
 blockquote,
@@ -142,9 +149,13 @@ table {
 /** end reset css**/
 body {
 	max-width: 1140px;
-	margin: auto;
+	margin: 0 auto;
 	font-family: 'Work Sans';
 	font-size: 14px;
+}
+
+main {
+	margin: 0 20px;
 }
 
 header {
@@ -152,6 +163,8 @@ header {
 	justify-content: space-between;
 	margin: 50px 0
 }
+
+
 
 section {
 	margin: 50px 0
@@ -163,7 +176,8 @@ h1 {
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #B1663C;
+	margin: 0 20px;
 }
 
 h1>span {
@@ -183,12 +197,12 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
 
 nav li {
-	padding: 0 10px;
+	padding-right: 16px;
 	font-size: 1.2em;
+	color: #000000;
 }
 
 li a:hover {
@@ -197,7 +211,7 @@ li a:hover {
 
 button {
 	height: 36px;
-	width: 237px;
+	max-width: 237px;
 	box-sizing: border-box;
 	border: 1px solid #1D6154;
 	border-radius: 60px;
@@ -207,11 +221,10 @@ button {
 	font-weight: 700;
 	font-size: 14px;
 	line-height: 17px;
-
 }
+
 .active {
 	background-color: #1D6154;
-
 }
 
 #introduction {
@@ -272,7 +285,6 @@ button {
 
 .gallery img {
 	width: 100%;
-
 }
 
 #contact {
@@ -324,7 +336,8 @@ input[type="submit"] {
 	color: white;
 	background-color: #1D6154;
 	margin: 2em auto;
-	width: 180px;
+	padding: 0 2em ;
+	max-width: 180px;
 	text-align: center;
 	border-radius: 60px;
 }
@@ -332,18 +345,17 @@ input[type="submit"] {
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin: 2em;
 }
 
 /* Rajout du css*/
 
-/******barre du haut si connextion ok*****/
+/****** barre du haut si connextion ok *****/
 
 .blockHeader {
 	text-align: center;
 	background-color: black;
-	width: 1140px;
-	padding:10px 0;
+	padding: 10px 0;
 }
 
 .blockHeader span {
@@ -355,11 +367,14 @@ footer nav ul {
 	font-weight: 500;
 	font-size: 14px;
 	color: #000000;
-	width: 216px;
-
+	max-width: 216px;
 }
 
-/******mes projet modifier: icon et Btn modifier*********/
+/****************************************************/
+
+
+
+/****** mes projet modifier: icon et Btn modifier *********/
 #introduction #edit_span {
 	margin-left: 50px;
 }
@@ -368,10 +383,12 @@ footer nav ul {
 	border: none;
 	margin-left: 6px;
 }
-.btn-edit{
+
+.btn-edit {
 	cursor: pointer;
 }
 
+/* titre 'projet 'et les boutons en mode normal*/
 .projet_edite {
 	display: flex;
 	justify-content: center;
@@ -394,6 +411,9 @@ footer nav ul {
 
 /**********afficher modal***********/
 .modal {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	background: #FFFFFF;
 	border-radius: 10px;
 	display: none;
@@ -403,39 +423,51 @@ footer nav ul {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	overflow: auto;
+	overflow-y: hidden;
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal.active {
-	display: block;
+	display: flex;
 }
 
 .modal h3 {
-	text-align: center;
-	padding: 35px 0;
 	font-family: 'Work Sans';
 	font-style: normal;
 	font-weight: 400;
 	font-size: 26px;
 	line-height: 30px;
+	text-align: center;
+	padding-bottom: 15px;
 	color: #000000;
-	height: 30px;
 }
 
 .modal-container {
-	background-color: #fefefe;
-	margin: 9% auto;
-	padding: 20px 50px;
+	max-width: 80%;
+	height: 610px;
+	margin: 16% auto;
+	padding: 0 20px;
 	border: 1px solid #888;
-	width: 420px;
 	border-radius: 10px;
+	background-color: #fefefe;
+}
+
+.modal-header {
+	max-width: 100%;
+	margin-top: 10px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.madal-block {
+	height: auto;
+	box-sizing: content-box;
 }
 
 .border_gris {
-	margin: 20px 0;
 	color: #B3B3B3;
-	width: 400px;
+	max-width: 100%;
+	margin: 17px 0;
 	border: 1px solid #B3B3B3;
 }
 
@@ -444,72 +476,70 @@ footer nav ul {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	padding: 30px 0;
+	padding: 5px 0;
 }
 
 .modal_footer button {
-	margin: 30px 0;
 	border: none;
 	line-height: 1.5rem;
 	cursor: pointer;
 	color: white;
+	width: 237px;
 	border-radius: 60px;
 	background-color: #1D6154;
 }
 
+#btn_delete_img {
+	margin-top: 14px;
+	color: red;
+}
+
 .close {
-	position: relative;
-	left: 100%;
 	font-weight: bold;
 	font-size: 18px;
 	cursor: pointer;
 	color: black;
+	margin-left: auto;
 }
 
-.close:hover,
-.close:focus {
-	color: black;
-	text-decoration: none;
+#arrow-left {
 	cursor: pointer;
 }
 
 /************modal suppression*****************/
 .modal_gallery {
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	gap: 0.5%;
-}
-
-.modal_gallery figure {
-	margin-bottom: 2px;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .modal_gallery img {
-	width: 65px;
-	height: 80px;
+	max-width: 100%;
+	height: auto;
 }
 
-.modal_gallery figcaption {
-	margin-bottom: 5px;
+.modal_gallery figure {
+	max-width: 70px;
+	padding: 5px;
 }
 
-/******icon suppression********/
-.iconDelete {
-	margin-left: 50px;
-	margin-top: 10px;
-	position: absolute;
-	border-radius: 0.2rem;
-	cursor: pointer;
-}
-
-.iconDelete i {
+/****** icon suppression ********/
+.modal_gallery figure i {
 	position: relative;
-	top: 3px;
-	text-align: center;
-	width: 1.3rem;
-	height: 1.3rem;
 	color: #FFFFFF;
 	cursor: pointer;
+}
+
+.modal_gallery #id-icon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	margin-left: 2.3rem;
+	margin-top: 9px;
+	border-radius: 0.2rem;
+	background-color: #000000;
 }
 
 /************modal ajout********************/
@@ -520,27 +550,28 @@ footer nav ul {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 20px;
 	background: #E8F1F6;
-	height: 169px;
-	width: 420px;
+	height: auto;
+	max-width: 100%;
+	width: 90%;
+	margin: 0 auto;
 	border-radius: 3px;
 }
 
 .form_img_block i {
 	font-size: 48px;
 	color: #B9C5CC;
-	padding-top: 50px;
+	padding-top: 20px;
 }
 
 .form_img_block label {
-	margin-top: 10px;
+	margin-top: 5px;
 	display: inline-block;
-	padding: 10px 15px;
+	padding: 5px 15px;
 	color: #333;
 	cursor: pointer;
-	width: 173px;
-	height: 36px;
+	max-width: 173px;
+	height: 16px;
 	background: #CBD6DC;
 	border-radius: 50px;
 }
@@ -550,50 +581,104 @@ footer nav ul {
 }
 
 .form_img_block #img-label {
-	text-align: center;
+	max-width: 173px;
+
 }
 
 .form_img_block #type-img-label {
 	padding-top: 15px;
-	margin-bottom: 50px;
+	margin-bottom: 20px;
 }
+
+#preview-img-block {
+	overflow: hidden;
+	display: none;
+}
+
 #preview-image {
-	width: 129px;
+	max-width: 129px;
 	height: 190px;
 }
 
 /* groupe labeles et inputs*/
+
 .form-group {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-gap: 10px;
 }
 
-.form-group input[type="text"],select {
-	width: 420px;
-	height: 50px;
+.form-group input[type="text"],
+select {
+	max-width: 100%;
+	height: 45px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	background: #FFFFFF;
-	margin-bottom: 25px;
+	margin-bottom: 3px;
 }
 
 .form-group label {
+	display: block;
 	font-family: 'Work Sans';
 	font-style: normal;
 	font-weight: 500;
 	font-size: 14px;
 	line-height: 16px;
-	margin-bottom: 15px;
+	margin: 12px 0;
 }
-#arrow-left{
-	cursor: pointer;
+
+.modal_footer #btn-add:disabled {
+	background-color: #A7A7A7;
+	cursor: not-allowed;
 }
-.modal_footer #btn-add {
-	cursor: pointer;
-	/*background-color: #A7A7A7;*/
-}
-#btn-add:focus {
+
+.modal_footer #btn-add:enabled {
 	background-color: #1D6154;
+}
+
+/******************* medias ***************************/
+/* de 320px à 425px */
+@media screen and (min-width: 320px) and (max-width: 425px) {
+	header {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	nav {
+		margin-top: 20px;
+	}
+	.projet_edite {
+		flex-direction: column;
+		align-items: center;
+	}
+	#portfolio h2 {
+		margin-bottom: 0;
+	}
+
+	.projet_edite #edit_span {
+		padding: 10px 0;
+		text-align: center;
+	}
+
+	.category {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.category button {
+		width: 50%;
+		flex-direction: column;
+		align-items: center;
+		margin-bottom: 10px;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.modal-container {
+		max-width: 420px;
+		margin: 10% auto;
+	}
 }
