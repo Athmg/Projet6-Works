@@ -22,11 +22,11 @@ const editIconTxt = document.querySelectorAll(".edit_icon_txt");
 const modalGallery = document.querySelector(".modal_gallery");
 
 // Récupérer éléments(id) du formulaire 
-/*
+/* */
 const form = document.getElementById("form");
 const imageElt = document.getElementById('image');
 const titleElt = document.getElementById('title');
-const optionsCateg = document.getElementById('id_categ_form');*/
+const optionsCateg = document.getElementById('id_categ_form');/**/
 
 // Récupérer éléments des modals
 const modalDelete = document.getElementById("modal-delete");
@@ -106,109 +106,15 @@ function filterEvent(works, idCategorie) {
 
 }
 
-//////////////////////////////////////////////////////////////////
-// changement des couleurs sur les bouttons trier
-function btnActive(idCateg) {
-  btnsCateg.forEach(btn => {
-    btn.addEventListener('click', function () {
-      // supprimer la classe active de tous les boutons
-      btnsCateg.forEach(btn => {
-        btn.classList.remove('active');
-      });
-      // ajouter la classe active au bouton cliqué
-      this.classList.add('active');
-
-    });
-  });
-}
-
-console.log('l id gategory', idBtnsCateg);
-
-console.log('l id gategory btn', btnsCateg);
-btnActive(idBtnsCateg);
-
-/////////////////////////////////////////////////////////////////
-/**afficher ou cacher le mode édition suivant l'etat du token*/
-
-//window.addEventListener('DOMContentLoaded', () => {
-
-console.log(editIconTxt);
-
-// vérifier le statut de la connexion
-const testToken = loginTestToken();
-
-if (testToken) {
-  sectionBlockHeader.style.display = "block";
-  idBtnsCateg.style.display = "none";
-  console.log('connexion');
-} else {
-  sectionBlockHeader.style.display = "none";
-  idBtnsCateg.style.display = "block";
-  editIconTxt.forEach(elt => {
-    elt.style.display = "none";
-  });
-}
-//});
-
-// vérifier le Token
-function loginTestToken() {
-  // Vérifier si token existe
-  if (token) {
-    // L'utilisateur est connecté
-    return true;
-  } else {
-    // L'utilisateur est déconnecté
-    return false;
-  }
-}
-
-////////////////////////////////////////////////////
-
-// afficher la modal suppression
-function displayModalDelete() {
-  modalDelete.style.display = "block";
-}
-//  afficher la modal ajout
-function displayModalAdd() {
-  modalAdd.style.display = "block";
-}
-// fermer  les modals
-function fermerModals() {
-  modalDelete.style.display = "none";
-  modalAdd.style.display = "none";
-}
-// événement pour le bouton ajout photo
-btnAddPhoto.addEventListener("click", displayModalAdd);
-
-// événement pour le bouton supprimer work
-btnEdit.forEach((button) => {
-  button.addEventListener("click", displayModalDelete);
-});
-// événement pour les boutons fermer modals
-closeModalBtns.forEach((button) => {
-  button.addEventListener("click", fermerModals);
-});
-
-// événement pour fermer la modal en dehors
-window.addEventListener("click", (event) => {
-  if (event.target === modalDelete || event.target === modalAdd) {
-    fermerModals();
-  }
-});
-
-
-///////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 // Supprimer work dans le Dom et dans le server
 function deleteWork() {
   const iconDeletes = document.querySelectorAll(".iconDelete");
   iconDeletes.forEach(iconDelete => {
     iconDelete.addEventListener('click', (e) => {
       e.preventDefault();
-      // Empêcher la fermeture automatique de la modal
-      e.stopPropagation();
       const idDelete = iconDelete.dataset.id;
       const figure = document.getElementById(idDelete);
-      const token = localStorage.getItem('token');
       if (token) {
         fetch(`http://localhost:5678/api/works/${idDelete}`, {
           method: 'DELETE',
@@ -230,6 +136,8 @@ function deleteWork() {
             console.error('Erreur  de suppression:', error);
           });
       }
+      // empêcher la fermeture automatique de la modal
+      e.stopPropagation();
     });
   });
 }
@@ -271,7 +179,7 @@ function changeImage() {
 
 }
 
-/** envoyer les données dans le serveur **/
+/** envoyer les données dans le serveur et ajout dans le dom**/
 function addWorks(){
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -283,8 +191,6 @@ function addWorks(){
     console.log(optionsCateg);
     formWork.append('image', imageElt.files[0]);
     console.log(imageElt);
-
-    const token = localStorage.getItem('token');
 
     fetch('http://localhost:5678/api/works', {
       method: 'POST',
@@ -307,19 +213,59 @@ function addWorks(){
     e.stopPropagation();
   });
 }
+
+//////////////////////////////////////////////////////////////////
+// changement des couleurs sur les bouttons filtrer
+function btnActive(idCateg) {
+  btnsCateg.forEach(btn => {
+    btn.addEventListener('click', function () {
+      // supprimer la classe active de tous les boutons
+      btnsCateg.forEach(btn => {
+        btn.classList.remove('active');
+      });
+      // ajouter la classe active au bouton cliqué
+      this.classList.add('active');
+
+    });
+  });
+}
+btnActive(idBtnsCateg);
+
+/////////////////////////////////////////////////////////////////
+/**afficher ou cacher : mode édition suivant l'etat du token*/
+
+// vérifier le statut de la connexion
+const testToken = loginTestToken();
+
+if (testToken) {
+  sectionBlockHeader.style.display = "block";
+  idBtnsCateg.style.display = "none";
+  console.log('connexion');
+} else {
+  sectionBlockHeader.style.display = "none";
+  idBtnsCateg.style.display = "block";
+  editIconTxt.forEach(elt => {
+    elt.style.display = "none";
+  });
+}
+
+// vérifier le Token
+function loginTestToken() {
+  // Vérifier si token existe
+  if (token) {
+    // L'utilisateur est connecté
+    return true;
+  } else {
+    // L'utilisateur est déconnecté
+    return false;
+  }
+}
+
 ////////////////////////////////////////////////////////////
 // tester les champs du formulaire pour activer le bouton valider
-
-const form = document.getElementById("form");
-const imageElt = document.getElementById('image');
-const titleElt = document.getElementById('title');
-const optionsCateg = document.getElementById('id_categ_form');
-btnValider.disabled = true;
-
-function testChamps() {
-
-
-  if (imageElt.file[0] !== '' && titleElt.value.trim() !== '' && optionsCateg.value.trim() !== '') {
+function testChamps() { 
+  btnValider.disabled = true;
+  if (imageElt.files[0] !== '' && titleElt.value.trim() !== '' && optionsCateg.value.trim() !== '') {
     btnValider.disabled = false;
   } else {
     btnValider.disabled = true;
@@ -338,4 +284,37 @@ arrowLeft.addEventListener("click", function () {
   // afficher la modale suppression
   modalDelete.style.display = "block";
   //formAddImage.reset();
+});
+
+///////////////////////////////////////////////
+// afficher la modal suppression
+function displayModalDelete() {
+  modalDelete.style.display = "block";
+}
+//  afficher la modal ajout
+function displayModalAdd() {
+  modalAdd.style.display = "block";
+}
+// fermer  les modals
+function fermerModals() {
+  modalDelete.style.display = "none";
+  modalAdd.style.display = "none";
+}
+// événement pour le bouton ajout photo
+btnAddPhoto.addEventListener("click", displayModalAdd);
+
+// événement pour le bouton supprimer work
+btnEdit.forEach((button) => {
+  button.addEventListener("click", displayModalDelete);
+});
+// événement pour les boutons fermer modals
+closeModalBtns.forEach((button) => {
+  button.addEventListener("click", fermerModals);
+});
+
+// événement pour fermer la modal en dehors
+window.addEventListener("click", (event) => {
+  if (event.target === modalDelete || event.target === modalAdd) {
+    fermerModals();
+  }
 });
