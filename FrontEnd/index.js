@@ -36,6 +36,7 @@ const btnAddPhoto = document.getElementById("btn-add-photo");
 const btnEdit = document.querySelectorAll(".btn-edit");
 
 //Récupérer éléments pour l'image et l'afficher(chargment img) dans modal ajout
+const formImglock=document.getElementById('form_img_block')
 const input = document.getElementById('image');
 const previewImgBlock = document.getElementById('preview-img-block');
 const previewImage = document.getElementById('preview-image');
@@ -106,15 +107,17 @@ function filterEvent(works, idCategorie) {
 
 }
 
-/////////////////////////////////////////////////////////////////////
-// Supprimer work dans le Dom et dans le server
+//////////////////////fin/////////////////////////////////
 function deleteWork() {
   const iconDeletes = document.querySelectorAll(".iconDelete");
-  iconDeletes.forEach(iconDelete => {
+  const idGallery = document.querySelectorAll('.gallery figure');
+
+  iconDeletes.forEach((iconDelete, index) => {
     iconDelete.addEventListener('click', (e) => {
       e.preventDefault();
       const idDelete = iconDelete.dataset.id;
-      const figure = document.getElementById(idDelete);
+      const figure = iconDelete.parentNode.parentNode;
+
       if (token) {
         fetch(`http://localhost:5678/api/works/${idDelete}`, {
           method: 'DELETE',
@@ -124,24 +127,28 @@ function deleteWork() {
           }
         })
           .then(response => {
-            if (response.ok) {
-              // Suppression réussie 
+            if (response.ok) {  // Suppression réussie 
+             // Supprimer la galerie dans la modal
               figure.remove();
-              console.log(response.json);
+              // Supprimer la galerie dans la page index
+              if (idGallery[index]) {
+                idGallery[index].remove();
+              }
+              console.log('Réponse fetch delete', response.json);
             } else {
               console.log('Erreur de suppression sur le serveur:', response.statusText);
             }
           })
           .catch(error => {
-            console.error('Erreur  de suppression:', error);
+            console.error('Erreur de suppression:', error);
           });
       }
-      // empêcher la fermeture automatique de la modal
+
+      // Empêcher la fermeture automatique de la modal
       e.stopPropagation();
     });
   });
 }
-
 
 //////////////////////////////////////////////////////////////////////
 // Ajouter work dans le Dom et dans le server
@@ -156,7 +163,7 @@ function changeImage() {
   // Vérifier si le fichier est sélectionné
   if (file) {
     console.log('Taille du fichier :', file.size, 'octets');
-    fileLabel.style.display = 'blo';
+    fileLabel.style.display = 'block';
     // teste taille de l'image si < à 4Mo
     if (file.size < 4) {
       alert('verifier la taille de l image');
@@ -165,11 +172,14 @@ function changeImage() {
     else {
       // Créer l'URL pour le fichier sélectionné
       imageURL = URL.createObjectURL(file);
-      // Afficher l'image dans l'aperçu du modal
       previewImage.setAttribute('src', imageURL);
-      // Ouvrir le modal d'aperçu
+
+      // Afficher l'image dans l'aperçu du modal
       previewImgBlock.style.display = 'block';
-      // Cacher les données présent avant le upload
+      previewImage.style.display = 'block'; 
+      formImglock.style.flexDirection='initial';
+
+      // Cacher les données présentes avant le upload
       faImage.style.display = 'none';
       fileLabel.style.display = 'none';
       input.style.display = 'none';
@@ -206,6 +216,13 @@ function addWorks(){
         // ajouter nouveau work     
         displayWork(work)
         form.reset(); // mettre à zéro le formulaire une fois ajouter
+        previewImage.style.display = 'none'; // Cacher l'aperçu de l'image
+        // Cacher les données présentes avant le upload
+      faImage.style.display = 'block';
+      fileLabel.style.display = 'block';
+      input.style.display = 'block';
+      typeImgLabel.style.display = 'block';
+      formImglock.style.flexDirection='column';
       })
       .catch((error) => {
         console.log('Erreur lors de la requête fetch:', error);
