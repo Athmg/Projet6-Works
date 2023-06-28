@@ -8,33 +8,32 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
-	<link rel="stylesheet" href="./assets/style.css">
+	<link rel="stylesheet" href="./assets/login.css">
 </head>
 <body>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
 	<nav>
 		<ul>
-			<li>projets</li>
-			<li>contact</li>
-			<li>login</li>
+			<li><a href="index.html#portfolio">projets</a></li>				
+				<li><a href="index.html#contact">contact</a></li>
+				<li><a href="login.html">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
 </header>
 <main>
-    <section id="contact">         
+    <section id="login">         
         <h2>Log In</h2>
-		<form action ="index.html" id="form" method="post">
-			<label for="email">Email</label>
-			<input type="text" name="email" id="email" value="sophie.bluel@test.tld">
-            <label for="password">Mot de passe</label>
+		<form id="form">
+			<label for="email" class="form-txt">Email</label>
+			<input type="email" name="email" id="email" value="sophie.bluel@test.tld">
+            <label for="password" class="form-txt">Mot de passe</label>
             <input type="password" name="password" id="password"  value="S0phie">            
 			<input type="submit" id="submit" value="Envoyer">
-            <a href=""> Mot de passe oublier</a>
+            <a href="" class="form-txt"> Mot de passe oublier</a>
 		</form>
     </section>
-
 </main>
 <footer>
 	<nav>
