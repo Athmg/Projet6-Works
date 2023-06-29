@@ -650,7 +650,7 @@ select {
 	margin: 12px 0;
 }
 
-/*******************************************
+/*******************************************/
 .modal_footer #btn-add:disabled{
     background-color: #A7A7A7;
     cursor: not-allowed;
@@ -659,23 +659,24 @@ select {
 .modal_footer #btn-add:enabled  {
     background-color: #1D6154;
 }
-*/
 
-.bnt-activer {
+/*
+.btn-activer {
 	display: block;
 	text-decoration: none;
 	cursor: pointer;
 	border: none;
   }
 
-  .bnt-activer:disabled {
+  #btn-add:disabled {
 	background-color: #A7A7A7;
 	cursor: not-allowed;
   }
 
-  .bnt-activer:enabled {
-	background-color: #9fe80c;
+  #btn-add:enabled {
+	background-color: #1D6154;
   }
+*/
 
 
 

@@ -20,29 +20,34 @@ async function testLogin(email, password) {
     if ((email.trim() === "") || (password.trim() === "")) {
         afficherAlerte("Veuillez remplir tous les champs.", "danger", errorMessage);
         erreur = true;
-        }
+    }
     else {
-        if (email === emailElt.value && password === passwordElt.value) {
-            localStorage.setItem('email', email);
-            localStorage.setItem('password', password);   
-            // appeler fetch
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            });
-            const result = await response.json();
-            console.log(result);
-    
-            // tester si le token est valide
-            if (result.token) {
-                localStorage.setItem('token', result.token);
-                window.location.href = 'index.html';
-            } else {
-                // Afficher l'erreur de connexion si le token est invalide
-                afficherAlerte('Email ou mot de passe incorrect.', "danger", errorMessage);
-            }
-        } 
+        if(email !== emailElt.value || password !== passwordElt.value){
+            // Afficher l'erreur de connexion si le token est invalide
+            afficherAlerte('Email ou mot de passe incorrect.', "danger", errorMessage);
+        }
+    }
+
+    if (email === emailElt.value && password === passwordElt.value) {
+        localStorage.setItem('email', email);
+        localStorage.setItem('password', password);   
+        // appeler fetch
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        const result = await response.json();
+        console.log(result);
+
+        // tester si le token est valide
+        if (result.token) {
+            localStorage.setItem('token', result.token);
+            window.location.href = 'index.html';
+        } else {
+            // Afficher l'erreur de connexion si le token est invalide
+            afficherAlerte('Email ou mot de passe incorrect.', "danger", errorMessage);
+        }
     }
 }    
 
@@ -63,9 +68,5 @@ function logout() {
         // Réinitialiser les valeurs dans le stockage local
         localStorage.removeItem('email');
         localStorage.removeItem('password');
-        localStorage.clear();
     });
 }
-
-
-

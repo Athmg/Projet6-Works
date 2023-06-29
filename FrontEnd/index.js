@@ -200,7 +200,7 @@ function addWorks() {
     // FormData pour l'ajout
     const formWork = new FormData(form);
     formWork.append('title', titleElt.value);
-    formWork.append('category', category.value);
+    formWork.append('category', optionsCateg.value);
     formWork.append('image', imageElt.files[0]);
 
     fetch('http://localhost:5678/api/works', {
@@ -285,13 +285,13 @@ function loginTestToken() {
 ////////////////////////////////////////////////////////////
 // tester les champs du formulaire pour activer le bouton valider
 function testChamps() {
-  if (imageElt.files[0] !== '' && titleElt.value.trim() !== '' && optionsCateg.value.trim() !== ''){
+  if (imageElt.files.length > 0 && titleElt.value.trim() !== '' && optionsCateg.value !== '0') {
     btnValider.disabled = false;
-  } 
-else {
-  btnValider.disabled = true;
+  } else {
+    btnValider.disabled = true;
+  }
 }
-}
+
 btnValider.disabled = true;
 
 imageElt.addEventListener('change', testChamps);
@@ -351,3 +351,9 @@ window.addEventListener("click", (event) => {
     fermerModals();
   }
 });
+
+
+/**
+ * 
+ * 
+ */
