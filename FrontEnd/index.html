@@ -57,13 +57,13 @@
 					<div class="form_container">
 						<div id="form_img_block">
 							<!--affichage de l'image une fois charger-->
-							<div id="preview-img-block" class="cacher">
+							<div id="preview-img-block" >
 								<img id="preview-image" src="" alt="Aperçu Image">
 							</div>
 							<!-- fin de l'affichage de l'image-->
-							<i id="fa-i-image" class="fa-sharp fa-regular fa-image" class="cacher"></i><br>
-							<input type="file" id="image" accept="image/*" class="cacher">
-							<label id="img-label" for="image" class="file-label" class="cacher">+ Ajouter photo</label>
+							<i id="fa-i-image" class="fa-sharp fa-regular fa-image" ></i><br>
+							<input type="file" id="image" accept="image/*" >
+							<label id="img-label" for="image" class="file-label" >+ Ajouter photo</label>
 							<span id="type-img-label" >jpg, png : 4mo max</span>
 
 						</div>
@@ -82,7 +82,8 @@
 						</div>
 						<div class="modal_footer">
 							<i class="fa-solid fa-horizontal-rule border_gris"></i>
-							<button type="submit" id="btn-add">Valider</button>
+							<button type="submit" class="bnt-activer" id="btn-add">Valider</button>
+							<div id="error-message"></div>
 						</div>
 					</div>
 				</form>
@@ -96,7 +97,8 @@
 			<ul>
 				<li><a href="#portfolio">projets</a></li>
 				<li><a href="#contact">contact</a></li>
-				<li><a href="login.html">login</a></li>
+				<li><a href="login.html" id="login">login</a></li>
+				<li><a  href="#" id="logout">logout</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
