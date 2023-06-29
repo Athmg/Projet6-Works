@@ -285,10 +285,15 @@ function loginTestToken() {
 ////////////////////////////////////////////////////////////
 // tester les champs du formulaire pour activer le bouton valider
 function testChamps() {
+
   if (imageElt.files.length > 0 && titleElt.value.trim() !== '' && optionsCateg.value !== '0') {
     btnValider.disabled = false;
+    afficherAlerte("", "success", errorMessage);
+   
   } else {
+    afficherAlerte("Veuillez remplir tous les champs.", "danger", errorMessage);
     btnValider.disabled = true;
+    
   }
 }
 
@@ -298,7 +303,13 @@ imageElt.addEventListener('change', testChamps);
 titleElt.addEventListener('change', testChamps);
 optionsCateg.addEventListener('change', testChamps);
 
+// événement formulaire rempli
 
+  if (!testChamps()) {
+    errorMessage.style.display = "block";
+  } else {
+    errorMessage.style.display = "none";
+  }
 /////////////////////////////////////////////////////////////////
 
 function afficherAlerte(message, type, element) {
@@ -350,4 +361,12 @@ window.addEventListener("click", (event) => {
   if (event.target === modalDelete || event.target === modalAdd) {
     fermerModals();
   }
+});
+
+////////////////////////////////////////////////////////////
+// nettoyer le localstorage
+
+logout.addEventListener("click", () => {
+  localStorage.clear();
+ 
 });

@@ -209,6 +209,7 @@ li a:hover {
 	color: #B1663C;
 }
 
+
 button {
 	height: 36px;
 	max-width: 237px;
@@ -481,9 +482,11 @@ footer nav ul {
 }
 
 .border_gris {
-	color: #B3B3B3;
-	max-width: 100%;
-	margin: 17px 0;
+	background-color: #B3B3B3;
+	display: inline-block; 
+	width: 95%;
+	margin-top: 40px ;
+	margin-bottom: 15px ;
 	border: 1px solid #B3B3B3;
 }
 
@@ -501,6 +504,7 @@ footer nav ul {
 	cursor: pointer;
 	color: white;
 	width: 237px;
+	margin-top: 12px;
 	border-radius: 60px;
 	background-color: #1D6154;
 }
@@ -560,9 +564,6 @@ footer nav ul {
 }
 
 /************modal ajout********************/
-/*.cacher {
-	display: none;
-}*/
 
 /* block pour l'image*/
 #form_img_block {
@@ -626,7 +627,7 @@ footer nav ul {
 .form-group {
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-gap: 10px;
+	
 }
 
 .form-group input[type="text"],
@@ -647,10 +648,13 @@ select {
 	font-weight: 500;
 	font-size: 14px;
 	line-height: 16px;
-	margin: 12px 0;
+	margin: 6px 0;
 }
 
 /*******************************************/
+.modal_footer #btn-add{
+	margin: 12px 0;
+}
 .modal_footer #btn-add:disabled{
     background-color: #A7A7A7;
     cursor: not-allowed;
@@ -658,6 +662,22 @@ select {
 
 .modal_footer #btn-add:enabled  {
     background-color: #1D6154;
+}
+
+/************************************************/
+.alert {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: hsl(354, 95%, 49%);
+}
+
+.alert-success {
+	background-color:white;
+    color: white;
 }
 
 /******************* reponsive medias ***************************/
@@ -683,7 +703,7 @@ select {
 	}
 
 	.border_gris {
-		margin: 10px 0;
+		margin: 5px 0;
 	}
 
 	.modal_gallery #id-icon {

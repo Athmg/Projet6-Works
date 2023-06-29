@@ -16,21 +16,21 @@ async function testLogin(email, password) {
     // Réinitialiser le message d'erreur
     errorMessage.innerHTML = "";
     const erreur = false;
-      
+
     if ((email.trim() === "") || (password.trim() === "")) {
         afficherAlerte("Veuillez remplir tous les champs.", "danger", errorMessage);
         erreur = true;
     }
     else {
-        if(email !== emailElt.value || password !== passwordElt.value){
+        if (email !== emailElt.value || password !== passwordElt.value) {
             // Afficher l'erreur de connexion si le token est invalide
             afficherAlerte('Email ou mot de passe incorrect.', "danger", errorMessage);
         }
     }
 
-    if (email === emailElt.value && password === passwordElt.value) {
+    if (email === 'sophie.bluel@test.tld' && password === 'S0phie') {
         localStorage.setItem('email', email);
-        localStorage.setItem('password', password);   
+        localStorage.setItem('password', password);
         // appeler fetch
         const response = await fetch(url, {
             method: 'POST',
@@ -44,12 +44,16 @@ async function testLogin(email, password) {
         if (result.token) {
             localStorage.setItem('token', result.token);
             window.location.href = 'index.html';
-        } else {
-            // Afficher l'erreur de connexion si le token est invalide
-            afficherAlerte('Email ou mot de passe incorrect.', "danger", errorMessage);
+        }else{
+             // Afficher l'erreur de connexion si le token est invalide
+        afficherAlerte('Erreur de connexion', "danger", errorMessage);
         }
+        
+    }else {
+        
+        afficherAlerte('Email ou mot de passe incorrect.', "danger", errorMessage);
     }
-}    
+}
 
 function afficherAlerte(message, type, element) {
     element.innerHTML = ""; // Effacer le contenu précédent
@@ -59,28 +63,4 @@ function afficherAlerte(message, type, element) {
     element.appendChild(alerte);
 }
 
-function logout() {
-    // Réinitialiser les champs 
-    emailElt.value = '';
-    passwordElt.value = '';
-    // Evénement avant de quitter la page
-    window.addEventListener("beforeunload", () => {
-        // Réinitialiser les valeurs dans le stockage local
-        localStorage.removeItem('email');
-        localStorage.removeItem('password');
-    });
-}
 
-function displayErrorMessage(message) {
-    var errorMessageElement = document.getElementById("error-message");
-    errorMessageElement.textContent = message;
-    errorMessageElement.style.display = "block";
-  }
-  
-  function hideErrorMessage() {
-    var errorMessageElement = document.getElementById("error-message");
-    errorMessageElement.textContent = "";
-    errorMessageElement.style.display = "none";
-  }
-  
-  
