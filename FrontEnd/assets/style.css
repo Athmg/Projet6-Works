@@ -660,26 +660,6 @@ select {
     background-color: #1D6154;
 }
 
-/*
-.btn-activer {
-	display: block;
-	text-decoration: none;
-	cursor: pointer;
-	border: none;
-  }
-
-  #btn-add:disabled {
-	background-color: #A7A7A7;
-	cursor: not-allowed;
-  }
-
-  #btn-add:enabled {
-	background-color: #1D6154;
-  }
-*/
-
-
-
 /******************* reponsive medias ***************************/
 
 @media screen and (min-width: 768px) {

@@ -70,3 +70,17 @@ function logout() {
         localStorage.removeItem('password');
     });
 }
+
+function displayErrorMessage(message) {
+    var errorMessageElement = document.getElementById("error-message");
+    errorMessageElement.textContent = message;
+    errorMessageElement.style.display = "block";
+  }
+  
+  function hideErrorMessage() {
+    var errorMessageElement = document.getElementById("error-message");
+    errorMessageElement.textContent = "";
+    errorMessageElement.style.display = "none";
+  }
+  
+  

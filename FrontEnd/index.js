@@ -351,9 +351,3 @@ window.addEventListener("click", (event) => {
     fermerModals();
   }
 });
-
-
-/**
- * 
- * 
- */

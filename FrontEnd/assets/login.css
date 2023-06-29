@@ -63,7 +63,7 @@ header {
 }
 
 section {
-    max-width:375px;
+    max-width: 375px;
     margin: 50px 0;
 }
 
@@ -135,7 +135,7 @@ a:visited {
 #login h2 {
     text-align: center;
     margin-bottom: 20px;
- 
+
 }
 
 #login form {
@@ -173,16 +173,35 @@ input[type="submit"] {
     color: white;
     background-color: #1d6154;
     margin: 2em auto;
-    max-width: 180px;  
+    max-width: 180px;
     height: 35px;
     text-align: center;
     border-radius: 60px;
 }
 
+/*************alert champs formulaire******************/
+.alert {
+    background-color: #c66b73;
+    border: 1px solid #72010d;
+    color: black;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.alert strong {
+    font-weight: bold;
+}
+
+.alert.active {
+    display: block;
+}
+
+/******************************/
+
 footer nav ul {
     display: flex;
     justify-content: flex-end;
-    padding: 30px 0 0 0 ;
+    padding: 30px 0 0 0;
 }
 
 
@@ -204,9 +223,10 @@ footer nav ul {
         flex-direction: column;
         margin: 10px 10px;
     }
+
     #login {
-       margin: 0 25px;
-       
+        margin: 0 25px;
+
     }
 
     header h1 {
@@ -220,10 +240,9 @@ footer nav ul {
 
     nav li {
         padding: 0 10px 0 0;
-    }  
+    }
 
     footer nav ul {
         margin: 1em 0 0 0;
     }
 }
-
