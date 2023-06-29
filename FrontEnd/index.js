@@ -303,13 +303,6 @@ imageElt.addEventListener('change', testChamps);
 titleElt.addEventListener('change', testChamps);
 optionsCateg.addEventListener('change', testChamps);
 
-// événement formulaire rempli
-
-  if (!testChamps()) {
-    errorMessage.style.display = "block";
-  } else {
-    errorMessage.style.display = "none";
-  }
 /////////////////////////////////////////////////////////////////
 
 function afficherAlerte(message, type, element) {
