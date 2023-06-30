@@ -29,8 +29,6 @@ async function testLogin(email, password) {
     }
 
     if (email === 'sophie.bluel@test.tld' && password === 'S0phie') {
-        localStorage.setItem('email', email);
-        localStorage.setItem('password', password);
         // appeler fetch
         const response = await fetch(url, {
             method: 'POST',
