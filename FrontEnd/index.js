@@ -360,4 +360,5 @@ window.addEventListener("click", (event) => {
 // nettoyer le localstorage
 logout.addEventListener("click", () => {
   localStorage.clear();
+  location.reload();
 });
